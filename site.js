@@ -115,7 +115,7 @@ document.addEventListener('keydown', function(event) {
         addRow();
         orderArray.shift();
         scoreCount.innerText = ++score;
-        gameTime = gameTime + 0.15;
+        gameTime = gameTime + 0.25;
     }
     else if(keys.indexOf(key) != -1){
         grid.firstElementChild.children[keys.indexOf(key)].style["background-color"] = "red";
