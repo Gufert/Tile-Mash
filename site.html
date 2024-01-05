@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Mash</title>
+    <link rel="stylesheet" type="text/css" href="site.css" />
+    <script type="text/javascript" src="site.js" defer></script>
+</head>
+<body>
+    <div class="site-header">
+        Tile Mash
+    </div>
+    <div class="game-container">
+        <div class="overlay">
+            <div class="countdown" id="countdown"></div>
+        </div>
+        <div class="tile-grid" id="tile-grid"></div>
+        <div class="keys" id="keys">
+            <div class="key">D</div>
+            <div class="key">F</div>
+            <div class="key">J</div>
+            <div class="key">K</div>
+        </div>
+        <div class="game-score">
+            <div class="current">
+                <div class="score-label">Score:</div>
+                <div class="score-count" id="score-count">0</div>
+            </div>
+            <div class="high">
+                <div class="score-label">High Score:</div>
+                <div class="score-count" id="high-score-count">0</div>
+            </div>
+        </div>
+        <button class="start-button" id="start" onclick="start()">Start</button>
+    </div>
+</body>
+</html>
