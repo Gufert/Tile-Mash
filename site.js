@@ -12,6 +12,7 @@ let countDown = document.getElementById("countdown");
 let startButton = document.getElementById("start");
 let checked = document.getElementById("checkbox");
 let time = document.getElementById("time-rem");
+let disable = document.getElementById("time-dis");
 
 function siteLoad(){
     if(localStorage.getItem("high-score")){
@@ -57,7 +58,9 @@ function reset(){
     for(let i = 0; i < 6; i++){
         addRow();
     }
-    startTimer();
+    if(!disable.checked){
+        startTimer();
+    }
 }
 
 function addRow(){
@@ -80,7 +83,7 @@ function addRow(){
 }
 
 function startTimer(){
-    gameTime = 3;
+    gameTime = 2;
     var interval = setInterval(function() {
         if(gameOver){
             clearInterval(interval);
@@ -115,7 +118,7 @@ document.addEventListener('keydown', function(event) {
         addRow();
         orderArray.shift();
         scoreCount.innerText = ++score;
-        gameTime = gameTime + 0.25;
+        gameTime = 2;
     }
     else if(keys.indexOf(key) != -1){
         grid.firstElementChild.children[keys.indexOf(key)].style["background-color"] = "red";
