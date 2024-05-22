@@ -9,7 +9,7 @@
     font-family: Impact;
 }
 .game-container{
-    width: 400px;
+    width: 402.5px;
     margin: auto;
 }
 .tile-grid{
@@ -18,7 +18,7 @@
 .overlay{
     z-index: 1;
     width: 400px;
-    height: 750px;
+    height: 765px;
     position: absolute;
     margin: auto;
     align-items: center;
@@ -48,12 +48,13 @@
 .tile{
     width: 100px;
     height: 125px;
-    margin-right: 3px;
+    margin: 0px 1.5px;
+
 }
 .keys{
     display: flex;
 }
-.key{
+.key,.six-key,.eight-key{
     width: 100px;
     text-align: center;
     font-size: 20px;
