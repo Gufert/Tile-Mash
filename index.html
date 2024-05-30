@@ -16,16 +16,7 @@
                 <div class="countdown" id="countdown"></div>
             </div>
             <div class="tile-grid" id="tile-grid"></div>
-            <div class="keys" id="keys">
-                <div class="eight-key">A</div>
-                <div class="six-key">S</div>
-                <div class="key">D</div>
-                <div class="key">F</div>
-                <div class="key">J</div>
-                <div class="key">K</div>
-                <div class="six-key">L</div>
-                <div class="eight-key">;</div>
-            </div>
+            <div class="keys" id="keys-line"></div>
             <div class="time">
                 <div class="time-label">Time Remaining:</div>
                 <div id="time-rem">0.00</div>
@@ -42,21 +33,22 @@
             </div>
             <button class="start-button" id="start" onclick="start()">Start</button>
             <div class="settings">
-                <div class="checkbox-container">
-                    <input type="checkbox" class="settings-checkbox" id="start-countdown-dis">
-                    <label for="timer">Disable Start Countdown</label>
+                <div class="checkboxes">
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="settings-checkbox" id="start-countdown-dis">
+                        <label for="timer">Disable Start Countdown</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="settings-checkbox" id="time-dis">
+                        <label for="time-dis">Disable Game Timer</label>
+                    </div>
                 </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" class="settings-checkbox" id="time-dis">
-                    <label for="time-dis">Disable Game Timer</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" class="settings-checkbox" id="six-key">
-                    <label for="six-key">6 Key Game Mode</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" class="settings-checkbox" id="eight-key">
-                    <label for="eight-key">8 Key Game Mode</label>
+                <div class="slide-container">
+                    <div class="key-count-container">
+                        <div class="key-count-label">Key Count:</div>
+                        <div class="key-count-value" id="kc-value"></div>
+                    </div>
+                    <input type="range" min="2" max="8" value="4" class="slider" step="2" id="kc-slider" oninput="updateGameMode(this.value)">
                 </div>
             </div>
         </div>

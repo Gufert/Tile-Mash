@@ -1,107 +1,50 @@
 let orderArray = [];
+let allKeys = ["a", "s", "d", "f", "j", "k", "l", ";"];
 let keys = [];
 let score = 0;
 let highScore = 0;
 let gameTime = 0;
 let gameOver = true;
-let rows = 4;
+let rows = 0;
+let keyCount = 0;
 
-let scoreCount = document.getElementById("score-count");
 let grid = document.getElementById("tile-grid");
-let high = document.getElementById("high-score-count");
 let countDown = document.getElementById("countdown");
+let keysLine = document.getElementById("keys-line");
+let time = document.getElementById("time-rem");
+let scoreCount = document.getElementById("score-count");
+let high = document.getElementById("high-score-count");
 let startButton = document.getElementById("start");
 let checkboxes = document.getElementsByClassName("settings-checkbox");
-let startConDis = document.getElementById("start-countdown-dis");
-let time = document.getElementById("time-rem");
-let disable = document.getElementById("time-dis");
-let six = document.getElementById("six-key");
-let sixBind = document.getElementsByClassName("six-key");
-let eight = document.getElementById("eight-key");
-let eightBind = document.getElementsByClassName("eight-key");
+let output = document.getElementById("kc-value");
+let slider = document.getElementById("kc-slider");
 
 function siteLoad(){
     if(localStorage.getItem("high-score")){
         highScore = Number(localStorage.getItem("high-score"));
         high.innerHTML = highScore;
     }
-    checkGameMode();
+    updateGameMode(slider.value);
 }
 siteLoad();
 
-function start(){
-    startButton.disabled = true;
-    for (let el of checkboxes) el.disabled = true;
+function updateGameMode(sliderValue){
+    keyCount = sliderValue;
+    output.innerHTML = keyCount;
 
-    if(startConDis.checked){
-        reset();
-    }
-    else{
-        countDown.style.display = "flex";
-        var seconds = 3;
-        countDown.innerHTML = 3;
-        var interval = setInterval(function() {
-            countDown.innerHTML = --seconds;
-        
-            if (seconds <= 0)
-            {
-                clearInterval(interval);
-                countDown.style.display = "none";
-                reset();
-            }
-        }, 1000);
-    }
+    redrawGrid();
+    setKeys();
 }
 
 function redrawGrid(){
+    rows = keyCount;
+
     while (grid.hasChildNodes()) {
         grid.removeChild(grid.firstChild);
     }
     for(let i = 0; i < 6; i++){
         addRow(rows);
     }
-}
-
-function reset(){
-    gameOver = false;
-    orderArray = [];
-    score = 0;
-    scoreCount.innerText = score;
-    redrawGrid();
-    if(!disable.checked){
-        startTimer();
-    }
-}
-
-six.addEventListener('change', function() {
-    eight.checked = false;
-    checkGameMode();
-});
-eight.addEventListener('change', function() {
-    six.checked = false;
-    checkGameMode();
-});
-
-function checkGameMode(){
-    if(eight.checked){
-        for (let el of eightBind) el.style.display = "block";
-        for (let el of sixBind) el.style.display = "block";
-        rows = 8;
-        keys = ["a", "s", "d", "f", "j", "k", "l", ";"];
-    }
-    else if(six.checked){
-        for (let el of eightBind) el.style.display = "none";
-        for (let el of sixBind) el.style.display = "block";
-        rows = 6;
-        keys = ["s", "d", "f", "j", "k", "l"];
-    }
-    else{
-        for (let el of eightBind) el.style.display = "none";
-        for (let el of sixBind) el.style.display = "none";
-        rows = 4;
-        keys = ["d", "f", "j", "k"];
-    }
-    redrawGrid();
 }
 
 function addRow(rows){
@@ -121,6 +64,56 @@ function addRow(rows){
         tileRow.appendChild(tile);
     }
     grid.appendChild(tileRow);
+}
+
+function setKeys(){
+    keys = allKeys.slice((allKeys.length / 2) - (keyCount / 2), (allKeys.length / 2) + (keyCount / 2));
+
+    while (keysLine.hasChildNodes()){
+        keysLine.removeChild(keysLine.firstChild);
+    }
+    for(let i = 0; i < keys.length; i++){
+        let keyLabel = document.createElement("div");
+        keyLabel.className = "key";
+        keyLabel.innerHTML = keys[i].toLocaleUpperCase();
+        keysLine.appendChild(keyLabel);
+    }
+}
+
+function start(){
+    startButton.disabled = true;
+    for (let el of checkboxes) el.disabled = true;
+    slider.disabled = true;
+
+    if(checkboxes[0].checked){
+        reset();
+    }
+    else{
+        countDown.style.display = "flex";
+        var seconds = 3;
+        countDown.innerHTML = 3;
+        var interval = setInterval(function() {
+            countDown.innerHTML = --seconds;
+        
+            if (seconds <= 0)
+            {
+                clearInterval(interval);
+                countDown.style.display = "none";
+                reset();
+            }
+        }, 1000);
+    }
+}
+
+function reset(){
+    gameOver = false;
+    orderArray = [];
+    score = 0;
+    scoreCount.innerText = score;
+    redrawGrid();
+    if(!checkboxes[1].checked){
+        startTimer();
+    }
 }
 
 function startTimer(){
@@ -171,6 +164,7 @@ function endGame(){
     gameOver = true;
     startButton.disabled = false;
     for (let el of checkboxes) el.disabled = false;
+    slider.disabled = false;
 
     if(localStorage.getItem("high-score")){
         if(score > highScore){
