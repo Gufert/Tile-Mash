@@ -138,7 +138,7 @@ function startTimer(){
 }
 
 document.addEventListener('keydown', function(event) {
-    const key = event.key;
+    const key = event.key.toLowerCase();
     if(gameOver){
         if(key == "Enter"){
             start();
